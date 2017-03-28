@@ -95,6 +95,7 @@ void handleAdd();
 void handleSub();
 void handleDataDirective();
 void handleLoadWord();
+void handleLoadImmediate();
 void handleStoreWord();
 void handleTextDirective();
 
@@ -179,6 +180,10 @@ void handleTextDirective()
 								handleLoadWord();
 								break;
 
+							case T_LOAD_IMMEDIATE:
+								handleLoadImmediate();
+								break;
+
 							case T_STORE_WORD:
 								handleStoreWord();
 								break;
@@ -222,6 +227,30 @@ void handleLoadWord()
 		}
 	}
 	printf("%c = %d, %s = %d \n", label, symbol_table[label - 'a'], reg, mips_reg[reg_no]);
+}
+
+void handleLoadImmediate()
+{
+	printf("\n%s\n",__FUNCTION__);
+	
+	char reg[5];
+
+	tok = yylex();
+	if(tok == T_REG)
+	{
+		strcpy(reg, yytext);
+		
+		tok = yylex();
+		if(tok == T_COMMA)
+		{		
+			tok = yylex();
+			if(tok = T_INT_NUM)
+			{
+				mips_reg[reg_no] = int_val;
+			}
+		}
+	}
+	printf("%s = %d \n", reg, mips_reg[reg_no]);
 }
 
 void handleStoreWord()

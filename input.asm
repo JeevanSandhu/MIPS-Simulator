@@ -10,4 +10,5 @@ main:
 	lw $t1, b
 	add $t0, $t1, $t2
 	sw $t2, s
+	li $t3, 5
 .end main
